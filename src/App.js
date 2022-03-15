@@ -1,5 +1,6 @@
 import RecordCard from './components/RecordCard'
 import React, { useState, useEffect, useRef } from "react"
+import SearchCard from './components/SearchCard';
 
 function App() {
   const [records, setRecords] = useState([]);
@@ -7,7 +8,7 @@ function App() {
   const [is_next_page, setIsNextPage] = useState(true);
   const [state_code, setStateCode] = useState('');
   const show_more_button = useRef();
-  const new_state_code = useRef();
+  const new_state_code = React.createRef();
 
   function getData(state_code, page_number) {
     fetch(`https://jailbase-jailbase.p.rapidapi.com/search/?last_name=davis&source_id=${state_code}&page=${page_number}`, {
@@ -34,14 +35,12 @@ function App() {
   }
 
   function getNewStateCode() {
-    const code = new_state_code.current.value
+    const code = new_state_code.current.value;
     new_state_code.current.value = null;
     let records = document.querySelectorAll('.record_card')
     records.forEach(record => record.remove())
 
-    // setRecords([])
     getData(code, 1)
-    // getData(code, 1)
   }
 
   useEffect(() => {
@@ -50,8 +49,8 @@ function App() {
 
   return (
     <div className="App">
-      <input ref={new_state_code} placeholder='State Code'></input>
-      <button onClick={getNewStateCode}>Find</button>
+      <SearchCard ref={new_state_code} getNewStateCode={getNewStateCode} />
+
       {
         records.map(record => {
           return <RecordCard data={record} />

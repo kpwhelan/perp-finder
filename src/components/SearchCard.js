@@ -1,13 +1,12 @@
 import React from 'react'
-import Input from './Input'
 
-function SearchCard() {
+function SearchCard(props, ref) {
   return (
     <div>
-        <Input input_name="First Name: " />
-        <Input input_name="Source ID: " />
+      <input ref={ref} placeholder='State Code'></input>
+      <button onClick={() => props.getNewStateCode()}>Find</button>
     </div>
   )
 }
 
-export default SearchCard
+export default React.forwardRef(SearchCard)
