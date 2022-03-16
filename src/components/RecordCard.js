@@ -2,7 +2,7 @@ import React from 'react'
 
 function RecordCard(props) {
   return (
-    <div className='d-inline-flex flex-wrap bd-highlight mb-3 w-100'>
+    <div className='d-inline-flex flex-wrap bd-highlight mb-3 w-100 record_card'>
       <div className='card m-3 p-3 w-40'>
         <div className='card-body'>
           <p className='card-title'>Name: {props.data.name}</p>
