@@ -8,10 +8,13 @@ function App() {
   const [is_next_page, setIsNextPage] = useState(true);
   const [state_code, setStateCode] = useState('');
   const show_more_button = useRef();
-  const new_state_code = React.createRef();
+  const new_state_code = useRef();
+  const first_name = useRef();
+  const last_name = useRef();
+  const search_card_refs = useRef({new_state_code, first_name, last_name});
 
-  function getData(state_code, page_number) {
-    fetch(`https://jailbase-jailbase.p.rapidapi.com/search/?last_name=davis&source_id=${state_code}&page=${page_number}`, {
+  function getData(state_code, f_name, l_name, page_number) {
+    fetch(`https://jailbase-jailbase.p.rapidapi.com/search/?last_name=${l_name}&first_name=${f_name}&source_id=${state_code}&page=${page_number}`, {
       "method": "GET",
       "headers": {
         "x-rapidapi-host": "jailbase-jailbase.p.rapidapi.com",
@@ -34,22 +37,24 @@ function App() {
     getData(state_code, page_number)
   }
 
-  function getNewStateCode() {
+  function getPrisonerData() {
     const code = new_state_code.current.value;
-    new_state_code.current.value = null;
+    const f_name = first_name.current.value;
+    const l_name = last_name.current.value;
+
     let records = document.querySelectorAll('.record_card')
     records.forEach(record => record.remove())
 
-    getData(code, 1)
+    getData(code, f_name, l_name, 1)
   }
 
   useEffect(() => {
-    getData(state_code, page_number)
+    getData(state_code, '', '', page_number)
   }, [])
 
   return (
     <div className="App">
-      <SearchCard ref={new_state_code} getNewStateCode={getNewStateCode} />
+      <SearchCard ref={search_card_refs} getPrisonerData={getPrisonerData} />
 
       {
         records.map(record => {
