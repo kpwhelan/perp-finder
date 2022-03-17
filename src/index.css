@@ -9,6 +9,10 @@ body {
   margin: 5px;
 }
 
+.prison-dropdown {
+  white-space: nowrap;
+}
+
 ul {
   padding: 0;
 }
