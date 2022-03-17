@@ -34,7 +34,11 @@ function App() {
   }
 
   function showMore() {
-    getData(state_code, page_number)
+    const code = new_state_code.current.value;
+    const f_name = first_name.current.value;
+    const l_name = last_name.current.value;
+
+    getData(code, f_name, l_name, page_number)
   }
 
   function getPrisonerData() {
@@ -62,7 +66,8 @@ function App() {
         })
       }
 
-      <button ref={show_more_button} onClick={showMore}>Show More</button>
+      {records.length > 0 && <button ref={show_more_button} onClick={showMore}>Show More</button>}
+      
     </div>
   );
 }
