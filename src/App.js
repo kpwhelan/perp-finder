@@ -23,7 +23,7 @@ function App() {
     })
     .then(response => response.json())
     .then(data => {
-        setIsNextPage(data.next_page !== 0);
+        setIsNextPage(data.next_page !== '0');
         setPageNumber(page_number += 1)
         setRecords([...records, ...data.records])
 
